@@ -1,0 +1,81 @@
+0
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=32/70  Signal level=-78 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:649   Missed beacon:0
+
+1
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=37/70  Signal level=-73 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:649   Missed beacon:0
+
+2
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=37/70  Signal level=-73 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:651   Missed beacon:0
+
+3
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=36/70  Signal level=-74 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:651   Missed beacon:0
+
+4
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=32/70  Signal level=-78 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:651   Missed beacon:0
+
+5
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=35/70  Signal level=-75 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:651   Missed beacon:0
+
+6
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=38/70  Signal level=-72 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:1  Invalid misc:1891   Missed beacon:0
+
+7
+wlp7s0    IEEE 802.11abgn  ESSID:"gguevarav5"  
+          Mode:Managed  Frequency:5.745 GHz  Access Point: 10:33:BF:C6:E9:9F   
+          Bit Rate=292.6 Mb/s   Tx-Power=22 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:on
+          Link Quality=38/70  Signal level=-72 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:1  Invalid misc:1891   Missed beacon:0
+
+8
