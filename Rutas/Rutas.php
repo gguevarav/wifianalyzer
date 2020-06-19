@@ -7,7 +7,8 @@ class Rutas{
 		$RutasRecibidas = explode("/", $_SERVER['REQUEST_URI']);
 
 		// Definimos las rutas
-		$RutasDefinidas = array("datos");
+		$RutasDefinidas = array("api",
+								"gui");
 
 		// Array que contendrá la ruta en que estamos trabajando, se inicializa null por que se buscará en la uri para después hacer el debido desvío.
 		$InformacionURI = array("RutaUtilizar" => null,
@@ -40,13 +41,18 @@ class Rutas{
 		
 		// Luego con condiciones lo redirigimos
 		if($InformacionURI["RutaUtilizar"] == ""){
-			$json = array(
-						"detalle" => "No encontrado"
-					 );
-			// Mostramos el json
-			echo json_encode($json, true);
+			// Saltamos a la página principal
+			header("Location: guiPrincipal.html");
+			// Preparamos el Json
+            /*$json = array(
+                "status" => 404,
+                "detalle" => "No encontrado"
+             );
+
+            header('Content-Type: application/json');
+            echo json_encode($json);*/
 		}
-			elseif ($InformacionURI["RutaUtilizar"] == "datos") {
+			elseif ($InformacionURI["RutaUtilizar"] == "api") {
 				// Si estamos recibiendo un verbo en la url vamos a verificar a cual lo redirigimos
 				if(isset($_SERVER["REQUEST_METHOD"])){
 					// Con un Switch bucaremos el verbo
@@ -55,6 +61,17 @@ class Rutas{
 							//echo "Hola Mundo";
 							$Mostrar = new ObtenerDatosControlador();
 							$Mostrar->mostrar();
+							break;
+					}
+				}
+			}
+			elseif ($InformacionURI["RutaUtilizar"] == "gui") {
+				// Si estamos recibiendo un verbo en la url vamos a verificar a cual lo redirigimos
+				if(isset($_SERVER["REQUEST_METHOD"])){
+					// Con un Switch bucaremos el verbo
+					switch ($_SERVER["REQUEST_METHOD"]) {
+						case "GET":
+							header("Location: guiPrincipal.html");
 							break;
 					}
 				}

@@ -3,7 +3,7 @@
         // Mostramos los datos
         static public function mostrar(){
             // Abrimos el archivo en modo lectura
-            $archivo = fopen("/home/drkprdx/Documentos/sitios/wifianalyzer/logs.txt", "r");
+            $archivo = fopen("/home/drkprdx/Documentos/sitios/wifianalyzer-api/logs.txt", "r");
             // Creamos un array que contenga todas las lineas del archivo
             $arrayLineas = array();
 
@@ -62,6 +62,7 @@
 
                 // Creamos el objeto
                 $NuevaLectura = array(
+                                        "id" => $Contador,
                                         "Tarjeta" => $arrayTokensLinea[1][0],
                                         "IEEE" => $arrayTokensLinea[1][5],
                                         "ESSID" => $arrayTokensLinea[1][9],
@@ -100,6 +101,9 @@
              );
 
             header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: http://localhost/');
+            header('Access-Control-Allow-Methods: GET, POST');
+            header("Access-Control-Allow-Headers: X-Requested-With");
             echo json_encode($json);
         }
 

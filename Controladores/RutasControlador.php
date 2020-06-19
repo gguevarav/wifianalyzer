@@ -1,5 +1,4 @@
 <?php
-
 class ControladorRutas{
 	public function index(){
 		// Incluimos el archivo de las rutas
