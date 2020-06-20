@@ -158,14 +158,26 @@
                         </v-col>
                         <v-col cols="12" md="6">
                             <v-card>
-                                <v-card-text outlined tile raised>
+                                <v-card-text>
                                     <v-row dense>
-                                        <v-col>
-                                          <v-card outlined tile raised>
+                                        <v-col cols="sm">
+                                          <v-card class="pa-2" outlined tile raised>
                                             <my-line-chart v-if="ChartConfig.labels.length"  :line-data="ChartConfig" :chart-options="options"></my-line-chart>
                                           </v-card>
                                         </v-col>
-                                    </v-row>
+                                        <v-col cols="sm">
+                                          <v-card class="pa-2" outlined tile raised>
+                                                <my-bar-chart v-if="ChartConfig.labels.length" :bar-data="ChartConfig" :chart-options="options"></my-bar-chart> 
+                                          </v-card>
+                                        </v-col>
+                                      </v-row>
+                                      <v-row no-gutters>
+                                        <v-col cols="sm">
+                                          <v-card class="pa-2" outlined tile raised>
+                                            One of three columns
+                                          </v-card>
+                                        </v-col>
+                                      </v-row>
                                 </v-card-text>
                             </v-card>
                         </v-col>
@@ -180,6 +192,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
 
     <script>
+        Vue.component('my-bar-chart', {
+            extends: VueChartJs.Bar,
+            props: ['barData', 'chartOptions'],
+            mounted() {
+                this.renderChart(this.barData, this.chartOptions);
+            },
+            /*watch: {
+              barData () {
+                console.log('bar data changed')
+                this.renderChart(this.barData, this.chartOptions);
+            },
+              chartOptions () {
+                this.renderChart(this.barData, this.chartOptions);
+             }
+            }*/
+        }, {
+            responsive: true,
+            maintainAspectRatio: false
+        })
+
         Vue.component('my-line-chart', {
             extends: VueChartJs.Line,
             props: ['lineData', 'chartOptions'],
@@ -214,7 +246,7 @@
                             data: [],
                             backgroundColor: '#3498db',
                             borderColor: 'rgba(136,136,136,0.5)',
-                            label: "dBm"
+                            label: "2013"
                         }]
                     },
                     options: {
@@ -222,7 +254,7 @@
                         maintainAspectRatio: false,
                         title: {
                             display: true,
-                            text: 'dBm'
+                            text: 'Chart.js Line Chart'
                         },
                         tooltips: {
                             mode: 'index',
@@ -234,22 +266,23 @@
                         },
                         scales: {
                             xAxes: [{
-                                display: false,
+                                display: true,
                                 categoryPercentage: 0.5,
                                 scaleLabel: {
-                                    display: false,
-                                    labelString: 'tiempo'
+                                    display: true,
+                                    labelString: 'Month'
                                 }
                             }],
                             yAxes: [{
                                 display: true,
                                 scaleLabel: {
-                                    display: false,
-                                    labelString: 'dBm'
+                                    display: true,
+                                    labelString: 'Value'
                                 }
                             }]
                         }
                     },
+                    iceCream: [],
                     drawer: false
                 }
             },
@@ -272,10 +305,10 @@
                     this.status = "getting data...";
                     // var that = this;
 
-                    await axios.get("http://localhost/wifianalyzer/intensidades").then((
+                    await axios.get("https://my-json-server.typicode.com/isogunro/jsondb/IceCream").then((
                             response) => {
                             console.log(response.data)
-                            this.getChartData(response.data.detalle);
+                            this.getChartData(response.data);
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -284,12 +317,12 @@
                 getChartData: function (chartData) {
                     //console.log(chartData);
                     for (var i = 0; i < chartData.length; i++) {
-                        this.ChartConfig.labels.push(chartData[i].hora)
+                        this.ChartConfig.labels.push(chartData[i].Flavor)
                         //this.$set(this.ChartConfig.labels,i,chartData[i].Flavor)
                     }
 
                     for (var i = 0; i < chartData.length; i++) {
-                        this.ChartConfig.datasets[0].data.push(chartData[i].intensidad)
+                        this.ChartConfig.datasets[0].data.push(chartData[i].Vote)
                         //this.$set(this.ChartConfig.labels,i,chartData[i].Vote)
                     }
                     console.log(this.ChartConfig);

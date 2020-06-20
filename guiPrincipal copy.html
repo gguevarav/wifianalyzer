@@ -52,7 +52,7 @@
                         <v-divider></v-divider>
                         <v-list nav dense>
                             <v-list-item-group>
-                                <v-list-item>
+                                <v-list-item >
                                     <v-list-item-icon>
                                         <v-icon>mdi-home</v-icon>
                                     </v-list-item-icon>
@@ -66,8 +66,7 @@
                     </v-navigation-drawer>
                     <v-row>
                         <v-col cols="12" md="6">
-                            <v-card v-model="datos" v-for="dato in datos" v-if="dato.id == cantidadDatos-1"
-                                :key="dato.id" class="mb-3">
+                            <v-card v-model="datos" v-for="dato in datos" v-if="dato.id == cantidadDatos-1" :key="dato.id" class="mb-3">
                                 <v-card-text>
                                     <v-chip label color="secondary">
                                         <v-icon left>mdi-antenna</v-icon>
@@ -158,14 +157,8 @@
                         </v-col>
                         <v-col cols="12" md="6">
                             <v-card>
-                                <v-card-text outlined tile raised>
-                                    <v-row dense>
-                                        <v-col>
-                                          <v-card outlined tile raised>
-                                            <my-line-chart v-if="ChartConfig.labels.length"  :line-data="ChartConfig" :chart-options="options"></my-line-chart>
-                                          </v-card>
-                                        </v-col>
-                                    </v-row>
+                                <v-card-text>
+                                    <canvas id="myLineChart"></canvas>
                                 </v-card-text>
                             </v-card>
                         </v-col>
@@ -180,119 +173,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
 
     <script>
-        Vue.component('my-line-chart', {
-            extends: VueChartJs.Line,
-            props: ['lineData', 'chartOptions'],
-            mounted() {
-                this.renderChart(this.lineData, this.chartOptions);
-            }
-            /*,
-                watch:{
-                  lineData () {
-                    this.renderChart(this.lineData, this.chartOptions);
-                },
-                  chartOptions () {
-                    this.renderChart(this.lineData, this.chartOptions);
-                }
-                } */
-        }, {
-            responsive: true,
-            maintainAspectRatio: false
-        })
-
         var app = new Vue({
             el: '#app',
             vuetify: new Vuetify(),
-            data() {
-                return {
+            data: {
                     drawer: false,
                     cantidadDatos: 0,
-                    datos: [],
-                    ChartConfig: {
-                        labels: [],
-                        datasets: [{
-                            data: [],
-                            backgroundColor: '#3498db',
-                            borderColor: 'rgba(136,136,136,0.5)',
-                            label: "dBm"
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        title: {
-                            display: true,
-                            text: 'dBm'
-                        },
-                        tooltips: {
-                            mode: 'index',
-                            intersect: false,
-                        },
-                        hover: {
-                            mode: 'nearest',
-                            intersect: true
-                        },
-                        scales: {
-                            xAxes: [{
-                                display: false,
-                                categoryPercentage: 0.5,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: 'tiempo'
-                                }
-                            }],
-                            yAxes: [{
-                                display: true,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: 'dBm'
-                                }
-                            }]
-                        }
-                    },
-                    drawer: false
-                }
+                    datos:[]
             },
-            created: function () {
+            created: function(){
                 this.mostrarDatos();
             },
-            mounted: function () {
-                this.getListData();
-            },
-            methods: {
-                mostrarDatos: function () {
+            methods:{
+                mostrarDatos:function(){
                     axios.get("http://localhost/wifianalyzer/api")
-                        .then(response => {
-                            app.cantidadDatos = response.data.detalle.length
-                            app.datos = response.data.detalle
-                        })
-                },
-                getListData: async function () {
-
-                    this.status = "getting data...";
-                    // var that = this;
-
-                    await axios.get("http://localhost/wifianalyzer/intensidades").then((
-                            response) => {
-                            console.log(response.data)
-                            this.getChartData(response.data.detalle);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                },
-                getChartData: function (chartData) {
-                    //console.log(chartData);
-                    for (var i = 0; i < chartData.length; i++) {
-                        this.ChartConfig.labels.push(chartData[i].hora)
-                        //this.$set(this.ChartConfig.labels,i,chartData[i].Flavor)
-                    }
-
-                    for (var i = 0; i < chartData.length; i++) {
-                        this.ChartConfig.datasets[0].data.push(chartData[i].intensidad)
-                        //this.$set(this.ChartConfig.labels,i,chartData[i].Vote)
-                    }
-                    console.log(this.ChartConfig);
+                    .then(response => {
+                        app.cantidadDatos = response.data.detalle.length
+                        app.datos=response.data.detalle
+                    })
                 }
             }
         });
@@ -300,3 +198,4 @@
 </body>
 
 </html>
+|

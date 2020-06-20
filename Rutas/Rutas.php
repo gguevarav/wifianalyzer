@@ -8,7 +8,8 @@ class Rutas{
 
 		// Definimos las rutas
 		$RutasDefinidas = array("api",
-								"gui");
+								"gui",
+								"intensidades");
 
 		// Array que contendrá la ruta en que estamos trabajando, se inicializa null por que se buscará en la uri para después hacer el debido desvío.
 		$InformacionURI = array("RutaUtilizar" => null,
@@ -72,6 +73,19 @@ class Rutas{
 					switch ($_SERVER["REQUEST_METHOD"]) {
 						case "GET":
 							header("Location: guiPrincipal.html");
+							break;
+					}
+				}
+			}
+			elseif ($InformacionURI["RutaUtilizar"] == "intensidades") {
+				// Si estamos recibiendo un verbo en la url vamos a verificar a cual lo redirigimos
+				if(isset($_SERVER["REQUEST_METHOD"])){
+					// Con un Switch bucaremos el verbo
+					switch ($_SERVER["REQUEST_METHOD"]) {
+						case "GET":
+							//echo "Hola Mundo";
+							$Mostrar = new ObtenerDatosControlador();
+							$Mostrar->datosChart();
 							break;
 					}
 				}

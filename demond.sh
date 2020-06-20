@@ -14,6 +14,16 @@ then
     # Primero obtendremos el valor id del objeto a escribir
     idobjeto=$(tail -n 1 logs.txt)
 
+    # Agregamos la hora y fecha en que se genero para poder usar una escala de tiempo
+    # primero creamos un par de variables
+    DIA=`date +"%d/%m/%Y"`
+    HORA=`date +"%H:%M:%S"`
+
+    # Primero el dia
+    echo $DIA >> logs.txt
+    # Luego la hora
+    echo $HORA >> logs.txt
+
     # Enviamos la información al archivo
     iwconfig >> logs.txt
 
@@ -24,6 +34,16 @@ then
 else
     # No existe el archivo, primero inicializamos el archivo con un id
     echo "0" >> logs.txt
+
+    # Agregamos la hora y fecha en que se genero para poder usar una escala de tiempo
+    # primero creamos un par de variables
+    DIA=`date +"%d/%m/%Y"`
+    HORA=`date +"%H:%M:%S"`
+
+    # Primero el dia
+    echo $DIA >> logs.txt
+    # Luego la hora
+    echo $HORA >> logs.txt
 
     # Luego enviamos la salida del comando iwconfig al archivo
     iwconfig >> logs.txt
