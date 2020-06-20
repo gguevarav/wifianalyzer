@@ -130,7 +130,7 @@
             // Creamos el array
             $arrayTiemposdBm = array();
             // Agregaremos todas las tomas de los dBm a un array con su respectiva hora de toma
-            for($contador = 0; $contador < count($lecturas); $contador++){
+            for($contador = count($lecturas)-20; $contador < count($lecturas); $contador++){
                 $arrayTemporal = array(
                                           "id" => $lecturas[$contador]["id"],
                                           "hora" => $lecturas[$contador]["hora"],

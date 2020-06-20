@@ -161,9 +161,8 @@
                                 <v-card-text outlined tile raised>
                                     <v-row dense>
                                         <v-col>
-                                          <v-card outlined tile raised>
-                                            <my-line-chart v-if="ChartConfig.labels.length"  :line-data="ChartConfig" :chart-options="options"></my-line-chart>
-                                          </v-card>
+                                                <my-line-chart v-if="ChartConfig.labels.length" :line-data="ChartConfig"
+                                                    :chart-options="options"></my-line-chart>
                                         </v-col>
                                     </v-row>
                                 </v-card-text>
@@ -186,15 +185,6 @@
             mounted() {
                 this.renderChart(this.lineData, this.chartOptions);
             }
-            /*,
-                watch:{
-                  lineData () {
-                    this.renderChart(this.lineData, this.chartOptions);
-                },
-                  chartOptions () {
-                    this.renderChart(this.lineData, this.chartOptions);
-                }
-                } */
         }, {
             responsive: true,
             maintainAspectRatio: false
@@ -208,13 +198,16 @@
                     drawer: false,
                     cantidadDatos: 0,
                     datos: [],
+                    datosGrafica:[],
                     ChartConfig: {
                         labels: [],
                         datasets: [{
                             data: [],
-                            backgroundColor: '#3498db',
-                            borderColor: 'rgba(136,136,136,0.5)',
-                            label: "dBm"
+                            //backgroundColor: '#3498db',
+                            borderColor: "#3e95cd",
+                            label: "dBm",
+                            fill: false,
+                            borderWidth: 2
                         }]
                     },
                     options: {
@@ -224,6 +217,9 @@
                             display: true,
                             text: 'dBm'
                         },
+                        label: {
+                            display: false,
+                        },
                         tooltips: {
                             mode: 'index',
                             intersect: false,
@@ -232,6 +228,7 @@
                             mode: 'nearest',
                             intersect: true
                         },
+                        showXLabels: 10,
                         scales: {
                             xAxes: [{
                                 display: false,
@@ -260,18 +257,14 @@
                 this.getListData();
             },
             methods: {
-                mostrarDatos: function () {
-                    axios.get("http://localhost/wifianalyzer/api")
+                mostrarDatos: async function () {
+                    await axios.get("http://localhost/wifianalyzer/api")
                         .then(response => {
-                            app.cantidadDatos = response.data.detalle.length
-                            app.datos = response.data.detalle
+                            this.cantidadDatos = response.data.detalle.length
+                            this.datos = response.data.detalle
                         })
                 },
                 getListData: async function () {
-
-                    this.status = "getting data...";
-                    // var that = this;
-
                     await axios.get("http://localhost/wifianalyzer/intensidades").then((
                             response) => {
                             console.log(response.data)
