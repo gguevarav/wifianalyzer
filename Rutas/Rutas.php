@@ -45,14 +45,6 @@ class Rutas{
 		if($InformacionURI["RutaUtilizar"] == ""){
 			// Saltamos a la página principal
 			header("Location: guiPrincipal.html");
-			// Preparamos el Json
-            /*$json = array(
-                "status" => 404,
-                "detalle" => "No encontrado"
-             );
-
-            header('Content-Type: application/json');
-            echo json_encode($json);*/
 		}
 			elseif ($InformacionURI["RutaUtilizar"] == "api") {
 				// Si estamos recibiendo un verbo en la url vamos a verificar a cual lo redirigimos
@@ -62,7 +54,7 @@ class Rutas{
 						case "GET":
 							//echo "Hola Mundo";
 							$Mostrar = new ObtenerDatosControlador();
-							$Mostrar->mostrar();
+							$Mostrar->mostrar($InformacionURI["ID"]);
 							break;
 					}
 				}
@@ -86,20 +78,7 @@ class Rutas{
 						case "GET":
 							//echo "Hola Mundo";
 							$Mostrar = new ObtenerDatosControlador();
-							$Mostrar->datosChart();
-							break;
-					}
-				}
-			}
-			elseif ($InformacionURI["RutaUtilizar"] == "intensidades") {
-				// Si estamos recibiendo un verbo en la url vamos a verificar a cual lo redirigimos
-				if(isset($_SERVER["REQUEST_METHOD"])){
-					// Con un Switch bucaremos el verbo
-					switch ($_SERVER["REQUEST_METHOD"]) {
-						case "GET":
-							//echo "Hola Mundo";
-							$Mostrar = new ObtenerDatosControlador();
-							$Mostrar->datosChart();
+							$Mostrar->datosChart($InformacionURI["ID"]);
 							break;
 					}
 				}

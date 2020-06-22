@@ -2,25 +2,28 @@
     class ObtenerDatosControlador {
         
         // GET: /api
-        static public function mostrar(){
-            $lecturas = self::obtenerDatos();
+        static public function mostrar($cantidad){
+            // 
+            $lecturas = self::obtenerDatos($cantidad);
             // Preparamos el Json
             $json = array(
                 "status" => 200,
-                "cantidad_datos" => count($lecturas),
+                "cantidad_datos" => count($lecturas) - 1,
                 "detalle" => $lecturas
             );
-            header('Content-Type: application/json');
-            //header('Access-Control-Allow-Origin: http://localhost/');
-            header('Access-Control-Allow-Methods: GET, POST');
-            header("Access-Control-Allow-Headers: X-Requested-With");
+
+            header('content-type: application/json; charset=utf-8');
+            header('Access-Control-Allow-Origin: *');
+            header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+            header('Access-Control-Allow-Methods: GET');
+            //header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
             echo json_encode($json);
         }
 
         // GET: /intensidades
-        static public function datosChart(){
+        static public function datosChart($cantidad){
             // Obtenemos la data
-            $lecturas = self::obtenerDatos();
+            $lecturas = self::obtenerDatos($cantidad);
             // Creamos el array
             $arrayTiemposdBm = array();
             // Agregaremos todas las tomas de los dBm a un array con su respectiva hora de toma
@@ -31,7 +34,7 @@
 				$inicio = count($lecturas)-20;
 			}
 			$final = count($lecturas);
-            for($contador = $inicio; $contador < $final; $contador++){
+            for($contador = 0; $contador < count($lecturas); $contador++){
                 $arrayTemporal = array(
                                           "id" => $lecturas[$contador]["id"],
                                           "hora" => $lecturas[$contador]["hora"],
@@ -47,17 +50,17 @@
                 "detalle" => $arrayTiemposdBm
             );
             // Devolvemos ldo datos
-            header('Content-Type: application/json');
-            //header('Access-Control-Allow-Origin: http://localhost/');
-            //header('Access-Control-Allow-Methods: GET, POST');
-            //header("Access-Control-Allow-Headers: X-Requested-With");
+            header('content-type: application/json; charset=utf-8');
+            header('Access-Control-Allow-Origin: *');
+            header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+            header('Access-Control-Allow-Methods: GET');
             echo json_encode($json);
         }
 
         // Funcion principal
-        static public function obtenerDatos(){
+        static public function obtenerDatos($cantidad){
             // Abrimos el archivo en modo lectura
-            $archivo = fopen("/home/drkprdx/Documentos/sitios/wifianalyzer/logs.txt", "r");
+            $archivo = fopen("./logs.txt", "r");
             if($archivo == null){
                 $json = array(
                     "status" => 404,
@@ -114,7 +117,7 @@
                     // Dividimos en tokens la informacion obtenida de la linea para luego almacenarla en el objeto
                     $arrayTokensLinea = array(1 => self::multiexplode(array(","," ","|", "\"", "="), $informacionLecturas[$Contador][0]),
                                               2 => self::multiexplode(array(","," ","|", "\"", "="), $informacionLecturas[$Contador][1]),
-                                              3 => self::multiexplode(array(","," ","|",":", "\"", "="), $informacionLecturas[$Contador][2]),
+                                              3 => self::multiexplode(array(","," ","|", "\"", "="), $informacionLecturas[$Contador][2]),
                                               4 => self::multiexplode(array(","," ","|",":", "\"", "="), $informacionLecturas[$Contador][3]),
                                               5 => self::multiexplode(array(","," ","|",":", "\"", "="), $informacionLecturas[$Contador][4]),
                                               6 => self::multiexplode(array(","," ","|",":", "\"", "="), $informacionLecturas[$Contador][5]),
@@ -160,11 +163,24 @@
                     // Agregamos el objeto al array principal
                     array_push($lecturas, $NuevaLectura);
                 }
-
+                // Array que vamos a devolver
+                $arrayRespuesta = array();
+                // Verificamos si nos estan pidiendo una cantidad a devolver
+                if($cantidad != null){
+                    $inicioContador = count($lecturas) - $cantidad;
+                    $finContador = count($lecturas);
+                    for($inicioContador; $inicioContador < $finContador; $inicioContador++){
+                        array_push($arrayRespuesta, $lecturas[$inicioContador]);
+                    }
+                    return $arrayRespuesta;
+                }
+                else{
+                    return $lecturas;
+                }
             }
 
             // Retornamos el array que contiene todas las lecturas con la información de forma individual
-			return $lecturas;
+			
         }
 
         
